@@ -1,8 +1,10 @@
 package ru.kscsq.tinkofftest.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import ru.kscsq.tinkofftest.entity.Application;
 import ru.kscsq.tinkofftest.exception.EntityNotFoundException;
@@ -18,12 +20,12 @@ public class ApplicationController {
     @Autowired
     private ApplicationService applicationService;
 
-    @RequestMapping(value = "/")
-    public List<Application> getAllApplications() {
+    @RequestMapping(value = "/", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE  })
+    public @ResponseBody List<Application> getAllApplications() {
         return applicationService.getAllApplications();
     }
 
-    @RequestMapping("/{id}")
+    @RequestMapping(value = "/{id}", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE  })
     public Application getApplication(@PathVariable int id) throws EntityNotFoundException {
         return applicationService.getApplication(id);
     }
