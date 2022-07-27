@@ -1,4 +1,4 @@
-FROM alpine-jre
+FROM openjdk:11
 
 EXPOSE 8080
 
