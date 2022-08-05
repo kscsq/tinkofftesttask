@@ -1,51 +1,36 @@
-def gv
 pipeline {
     agent any
-    parameters {
-        choice(name: 'VERSION', choices: ['1.1', '1.2'], description: '')
-        booleanParam(name: 'executeTests', defaultValue: true, description: '')
+    tools {
+        maven 'Maven'
     }
     stages {
-        stage('init') {
+        stage('build jar') {
             steps {
                 script {
-                    gv = load 'script.groovy'
+                    echo "building the application..."
+                    sh 'mvn package'
                 }
             }
         }
-        stage('build') {
+        stage('build image') {
             steps {
                 script {
-                    gv.buildApp()
-                }
-            }
-        }
-        stage('test') {
-            when {
-                expression {
-                    params.executeTests
-                }
-            }
-            steps {
-                script {
-                    gv.testApp()
+                    echo "building the docker image..."
+                    withCredentials([usernamePassword(credentialsId: 'docker-hub-repo', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+                        sh 'docker build -t kscsq/tinkofftesttask:jma-2.0 .'
+                        sh "echo $PASS | docker login -u $USER --password-stdin"
+                        sh 'docker push kscsq/tinkofftesttask:jma-2.0'
+                    }
                 }
             }
         }
         stage('deploy') {
-            input {
-                message 'Select the environment to deploy to'
-                ok 'Done'
-                parameters {
-                    choice(name: 'ENV', choices: ['dev', 'prod'], description: '')
-                }
-            }
             steps {
                 script {
-                    gv.deployApp()
-                    echo "Deploying to ${ENV}"
+                    echo "deploying the application..."
                 }
             }
         }
     }
 }
+
