@@ -9,6 +9,7 @@ def buildAndPushImage() {
     sh 'docker build -t kscsq/tinkofftesttask:jma-2.0 .'
     sh "echo $PASS | docker login -u $USER --password-stdin"
     sh 'docker push kscsq/tinkofftesttask:jma-2.0'
+    }
 }
 
 def deployApp() {
