@@ -26,6 +26,8 @@ pipeline {
             steps {
                 script {
                     buildImage 'kscsq/tinkofftesttask:jma-3.0'
+                    dockerLogin()
+                    dockerPush 'kscsq/tinkofftesttask:jma-3.0'
                 }
             }
         }
