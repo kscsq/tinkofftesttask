@@ -18,31 +18,37 @@ pipeline {
                 }
             }
         }
-        stage('init') {
-            steps {
-                script {
-                    gv = load "script.groovy"
-                }
-            }
-        }
+//         stage('init') {
+//             steps {
+//                 script {
+//                     gv = load "script.groovy"
+//                 }
+//             }
+//         }
         stage('build jar') {
             steps {
                 script {
-                    gv.buildJar()
-                }
+                    echo 'building the application...'
+                    sh 'mvn clean package'
+                    }
             }
         }
         stage('build image') {
             steps {
                 script {
-                    gv.buildAndPushImage()
+                    echo "building the docker image..."
+                    withCredentials([usernamePassword(credentialsId: 'docker-hub-repo', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+                    sh "docker build -t kscsq/tinkofftesttask:${IMAGE_NAME} ."
+                    sh "echo $PASS | docker login -u $USER --password-stdin"
+                    sh "docker push kscsq/tinkofftesttask:${IMAGE_NAME}"
+                    }
                 }
             }
         }
         stage('deploy') {
             steps {
                 script {
-                    gv.deployApp()
+                    echo 'deploying the application...'
                 }
             }
         }
