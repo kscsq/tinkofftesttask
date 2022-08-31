@@ -61,7 +61,7 @@ pipeline {
                         sh 'git status'
                         sh 'git branch'
                         sh 'git config --list'
-                        sh "git remote set-url origin https://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@github.com/kscsq/tinkofftesttask.git"
+                        sh "git remote set-url origin https://<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>@github.com/kscsq/tinkofftesttask.git"
                         sh 'git add .'
                         sh 'git commit -m "ci: version bump"'
                         sh 'git push origin HEAD:master'
