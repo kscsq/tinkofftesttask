@@ -55,6 +55,7 @@ pipeline {
         stage('commit version update') {
             steps {
                 script {
+                    withCredentials(none) {
 //                         sh 'git config --global user.email "kscsq@mail.ru"'
 //                         sh 'git config --global user.name "kscsq"'
                         sh 'git status'
@@ -64,6 +65,7 @@ pipeline {
                         sh 'git add .'
                         sh 'git commit -m "ci: version bump"'
                         sh 'git push origin HEAD:master'
+                    }
                 }
             }
         }
