@@ -55,17 +55,15 @@ pipeline {
         stage('commit version update') {
             steps {
                 script {
-                    withCredentials([usernamePassword(credentialsId: 'github-credentials', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
 //                         sh 'git config --global user.email "kscsq@mail.ru"'
 //                         sh 'git config --global user.name "kscsq"'
                         sh 'git status'
                         sh 'git branch'
                         sh 'git config --list'
-                        sh "git remote set-url origin https://<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>@github.com/kscsq/tinkofftesttask.git"
+                        sh "git remote set-url origin https://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@github.com/kscsq/tinkofftesttask.git"
                         sh 'git add .'
                         sh 'git commit -m "ci: version bump"'
                         sh 'git push origin HEAD:master'
-                    }
                 }
             }
         }
