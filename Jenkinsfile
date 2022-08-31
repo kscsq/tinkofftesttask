@@ -56,6 +56,11 @@ pipeline {
             steps {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'github-credentials', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+                        sh 'git config --global user.email "kscsq@mail.ru"'
+                        sh 'git config --global user.name "kscsq"'
+                        sh 'git status'
+                        sh 'git branch'
+                        sh 'git config --list'
                         sh "git remote set-url origin https://$USER:$PASS@github.com/kscsq/tinkofftesttask.git"
                         sh 'git add .'
                         sh 'git commit -m "ci: version bump"'
