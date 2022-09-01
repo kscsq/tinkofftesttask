@@ -36,12 +36,12 @@ pipeline {
         stage('build image') {
             steps {
                 script {
-                    echo "building the docker image..."
-                    withCredentials([usernamePassword(credentialsId: 'docker-hub-repo', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
-                    sh "docker build -t kscsq/tinkofftesttask:$IMAGE_NAME ."
-                    sh "echo $PASS | docker login -u $USER --password-stdin"
-                    sh "docker push kscsq/tinkofftesttask:$IMAGE_NAME"
-                    }
+//                     echo "building the docker image..."
+//                     withCredentials([usernamePassword(credentialsId: 'docker-hub-repo', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+//                     sh "docker build -t kscsq/tinkofftesttask:$IMAGE_NAME ."
+//                     sh "echo $PASS | docker login -u $USER --password-stdin"
+//                     sh "docker push kscsq/tinkofftesttask:$IMAGE_NAME"
+//                     }
                 }
             }
         }
@@ -57,13 +57,15 @@ pipeline {
                 script {
 //                         sh 'git config --global user.email "kscsq@mail.ru"'
 //                         sh 'git config --global user.name "kscsq"'
+                     withCredentials([usernamePassword(credentialsId: 'new_token_0109', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
                         sh 'git status'
                         sh 'git branch'
                         sh 'git config --list'
-                        sh "git remote set-url origin https://kscsq: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@github.com/kscsq/tinkofftesttask.git"
+                        sh "git remote set-url origin https://github.com/kscsq/tinkofftesttask.git"
                         sh 'git add .'
                         sh 'git commit -m "ci: version bump"'
                         sh 'git push origin HEAD:master'
+                        }
                 }
             }
         }
