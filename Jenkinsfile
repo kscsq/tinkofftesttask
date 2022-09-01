@@ -61,6 +61,7 @@ pipeline {
                         sh 'git status'
                         sh 'git branch'
                         sh 'git config --list'
+                        sh 'git remote remove origin'
                         sh "git remote set-url origin git@github.com:kscsq/tinkofftesttask.git"
                         sh 'git add .'
                         sh 'git commit -m "ci: version bump"'
