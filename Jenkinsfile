@@ -36,7 +36,7 @@ pipeline {
         stage('build image') {
             steps {
                 script {
-//                     echo "building the docker image..."
+                    echo "building the docker image..."
 //                     withCredentials([usernamePassword(credentialsId: 'docker-hub-repo', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
 //                     sh "docker build -t kscsq/tinkofftesttask:$IMAGE_NAME ."
 //                     sh "echo $PASS | docker login -u $USER --password-stdin"
@@ -65,7 +65,7 @@ pipeline {
                         sh 'git add .'
                         sh 'git commit -m "ci: version bump"'
                         sh 'git push origin HEAD:master'
-                        }
+                    }
                 }
             }
         }
