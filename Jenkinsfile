@@ -58,14 +58,14 @@ pipeline {
 //                         sh 'git config --global user.email "kscsq@mail.ru"'
 //                         sh 'git config --global user.name "kscsq"'
                      withCredentials([sshUserPrivateKey(credentialsId: 'new_token_0109', keyFileVariable: 'SSH_KEY')]) {
-                        sh 'git status'
-                        sh 'git branch'
-                        sh 'git config --list'
-                        sh 'git remote remove origin'
+//                         sh 'git status'
+//                         sh 'git branch'
+//                         sh 'git config --list'
                         sh "git remote set-url origin git@github.com:kscsq/tinkofftesttask.git"
                         sh 'git add .'
                         sh 'git commit -m "ci: version bump"'
-                        sh 'GIT_SSH_COMMAND="ssh -i $SSH_KEY" git push origin HEAD:master'
+                        sh 'GIT_SSH_COMMAND="ssh -i $SSH_KEY"'
+                        sh 'git push origin HEAD:master'
                     }
                 }
             }
