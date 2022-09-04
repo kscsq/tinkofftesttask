@@ -57,7 +57,7 @@ pipeline {
                 script {
 //                         sh 'git config --global user.email "kscsq@mail.ru"'
 //                         sh 'git config --global user.name "kscsq"'
-                     withCredentials([sshUserPrivateKey(credentialsId: 'new_token_0109', keyFileVariable: 'SSH_KEY')]) {
+                     withCredentials([sshUserPrivateKey(credentialsId: 'new_ssh_0409', keyFileVariable: 'SSH_KEY')]) {
 //                         sh 'git status'
 //                         sh 'git branch'
 //                         sh 'git config --list'
